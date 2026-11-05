@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Академија - Промотивне Активности</title>
+    <!-- Tailwind CSS за модеран и брз дизајн -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#6366F1',
+                        brandHover: '#4F46E5',
+                        bgLight: '#F8FAFC',
+                        darkBg: '#0F172A',
+                        darkCard: '#1E293B',
+                        darkBorder: '#334155',
+                        darkInput: '#090D16'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-bgLight dark:bg-darkBg text-slate-800 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- 1. ПОЧЕТНА СТРАНИЦА СА ПРИЈАВОМ КОРИСНИКА (LOGIN) -->
+    <div id="page-login" class="flex-1 flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-darkCard p-8 rounded-2xl shadow-xl w-full max-w-md border border-slate-100 dark:border-darkBorder">
+            <div class="text-center mb-8">
+                <div class="w-12 h-12 bg-brand text-white rounded-2xl flex items-center justify-center mx-auto shadow-md">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-900 dark:text-white mt-3">АТВСС НИШ</h1>
+                <p class="text-sm text-slate-500 dark:text-slate-400"><br>Портал за промотивне активности <br>Академије техничко-васпитачких струковних студија, <br>одсек Ниш</p>
+            </div>
+
+            <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Емаил адреса</label>
+                    <input type="email" id="login-email" required placeholder="korisnik@akademija.edu" 
+                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder bg-white dark:bg-darkInput text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Лозинка</label>
+                    <input type="password" id="login-password" required placeholder="••••••••" 
+                           class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder bg-white dark:bg-darkInput text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Изаберите улогу:</label>
+                    <select id="login-role" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder focus:outline-none focus:ring-2 focus:ring-brand bg-white dark:bg-darkInput text-slate-900 dark:text-white cursor-pointer">
+                        <option value="admin">Администратор</option>
+                        <option value="professor">Професор</option>
+                        <option value="student">Студент</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="w-full bg-brand text-white py-3 rounded-xl font-semibold shadow-lg hover:bg-brandHover transition duration-200">
+                    ПРИЈАВИ СЕ
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- АПЛИКАЦИЈСКИ ЛЕЈАУТ (SIDEBAR + ГОРЊА ТРАКА + САДРЖАЈ) -->
+    <div id="app-layout" class="hidden flex flex-1 min-h-screen">
+        <!-- Бочни мени (Sidebar) -->
+        <aside class="w-64 bg-white dark:bg-darkCard border-r border-slate-200 dark:border-darkBorder flex flex-col p-6 justify-between shadow-sm transition-colors duration-200">
+            <div class="space-y-8">
+                <!-- Лого и заглавље менија -->
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-brand text-white rounded-2xl flex items-center justify-center shadow-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0112 20.055a11.952 11.952 0 01-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-slate-900 dark:text-white tracking-wide leading-tight">AKADEMIJA</h2>
+                        <p class="text-xs text-slate-400">Promotivne Aktivnosti</p>
+                    </div>
+                </div>
+
+                <!-- Навигационе ставке -->
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 px-2">MENI</p>
+                    <nav class="space-y-2" id="sidebar-nav">
+                        <!-- Динамички мени према улози -->
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Подножје бочног менија (само дугме за одјаву) -->
+            <div>
+                <button onclick="logout()" class="w-full flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white transition rounded-xl font-medium text-sm">
+                    <svg class="w-5 h-5 stroke-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                    </svg>
+                    <span>Odjavi se</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Десни део: Горња трака + Главни садржај -->
+        <div class="flex-1 flex flex-col min-w-0">
+            <!-- ГОРЊА ТРАКА (HEADER) -->
+            <header class="h-16 bg-white dark:bg-darkCard border-b border-slate-200 dark:border-darkBorder px-8 flex items-center justify-between shadow-xs transition-colors duration-200">
+                <!-- Breadcrumbs (Путања) -->
+                <div class="flex items-center gap-2 text-sm">
+                    <span class="text-slate-400">Akademija</span>
+                    <svg class="w-4 h-4 text-slate-300 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <span id="breadcrumb-current" class="font-semibold text-slate-800 dark:text-slate-200">Aktivnosti</span>
+                </div>
+
+                <!-- Десни део: Тема + Само један MK аватарић -->
+                <div class="flex items-center gap-3">
+                    <!-- TEMA SELEKTOR (Samo ikonica) -->
+                    <div class="relative">
+                        <button onclick="toggleThemeDropdown()" id="theme-menu-button" class="w-9 h-9 flex items-center justify-center bg-slate-50 dark:bg-darkInput border border-slate-200 dark:border-darkBorder rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                            <span id="current-theme-icon">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                            </span>
+                        </button>
+
+                        <!-- Падајући мени за теме -->
+                        <div id="theme-dropdown" class="hidden absolute right-0 mt-2 w-32 bg-white dark:bg-darkCard border border-slate-200 dark:border-darkBorder rounded-xl shadow-lg py-1.5 z-50">
+                            <button onclick="setTheme('light')" class="w-full text-left px-3.5 py-2 text-xs flex items-center gap-2.5 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-darkInput transition">
+                                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                Svetlo
+                            </button>
+                            <button onclick="setTheme('dark')" class="w-full text-left px-3.5 py-2 text-xs flex items-center gap-2.5 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-darkInput transition">
+                                <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                                Tamno
+                            </button>
+                            <button onclick="setTheme('system')" class="w-full text-left px-3.5 py-2 text-xs flex items-center gap-2.5 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-darkInput transition">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                Sistem
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Статични иницијали MK (samo jednom) -->
+                    <div class="w-9 h-9 bg-indigo-50 dark:bg-indigo-950/80 border border-slate-200/60 dark:border-darkBorder text-brand dark:text-indigo-400 rounded-xl flex items-center justify-center text-xs font-bold tracking-wider shadow-xs">
+                        MK
+                    </div>
+                </div>
+            </header>
+
+            <!-- Главни садржај -->
+            <main class="flex-1 p-8 overflow-y-auto">
+
+                <!-- 2. АДМИНИСТРАТОРСКИ ПАНЕЛ (Korisnici - pregled) -->
+                <div id="page-admin" class="space-y-6 hidden">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Администраторски панел</h2>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm">Преглед кључних информација и статуса система у реалном времену.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white dark:bg-darkCard p-6 rounded-2xl border border-slate-100 dark:border-darkBorder shadow-sm">
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Укупно регистрованих корисника</p>
+                            <p class="text-3xl font-bold text-brand mt-1">124</p>
+                        </div>
+                        <div class="bg-white dark:bg-darkCard p-6 rounded-2xl border border-slate-100 dark:border-darkBorder shadow-sm">
+                            <p class="text-sm text-slate-500 dark:text-slate-400">Активни промотивни догађаји</p>
+                            <p class="text-3xl font-bold text-brand mt-1">8</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-darkCard rounded-2xl border border-slate-100 dark:border-darkBorder shadow-sm p-6">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-4">Преглед корисника у систему</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="border-b border-slate-100 dark:border-darkBorder text-slate-400">
+                                        <th class="pb-3">ИМЕ И ПРЕЗИМЕ</th>
+                                        <th class="pb-3">ЕМАИЛ</th>
+                                        <th class="pb-3">УЛОГА</th>
+                                        <th class="pb-3">СТАТУС</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-darkBorder">
+                                    <tr>
+                                        <td class="py-3 font-medium text-slate-900 dark:text-white">Марко Марковић</td>
+                                        <td class="text-slate-500 dark:text-slate-400">marko@akademija.edu</td>
+                                        <td><span class="bg-indigo-50 dark:bg-indigo-950/80 text-brand dark:text-indigo-300 px-2.5 py-1 rounded-md text-xs font-semibold">Професор</span></td>
+                                        <td><span class="text-emerald-500 font-medium">Активан</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3 font-medium text-slate-900 dark:text-white">Ана Анић</td>
+                                        <td class="text-slate-500 dark:text-slate-400">ana@akademija.edu</td>
+                                        <td><span class="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2.5 py-1 rounded-md text-xs font-semibold">Студент</span></td>
+                                        <td><span class="text-emerald-500 font-medium">Активан</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. СТРАНИЦА ЗА ДОДАВАЊЕ НОВОГ КОРИСНИКА (Novi korisnik) -->
+                <div id="page-add-user" class="space-y-6 hidden">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Додавање новог корисника</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Административни панел за регистрацију нових студената или професора.</p>
+                    </div>
+
+                    <div class="bg-white dark:bg-darkCard p-8 rounded-2xl border border-slate-100 dark:border-darkBorder shadow-sm max-w-xl">
+                        <form onsubmit="handleAddUser(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Име и презиме</label>
+                                <input type="text" required placeholder="Петар Петровић" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder bg-white dark:bg-darkInput text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Емаил адреса</label>
+                                <input type="email" required placeholder="petar@akademija.edu" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder bg-white dark:bg-darkInput text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Привремена лозинка</label>
+                                <input type="password" required placeholder="••••••••" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder bg-white dark:bg-darkInput text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Изаберите улогу у систему</label>
+                                <select class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder focus:outline-none focus:ring-2 focus:ring-brand bg-white dark:bg-darkInput text-slate-900 dark:text-white cursor-pointer">
+                                    <option value="Student">Студент</option>
+                                    <option value="Profesor">Професор</option>
+                                    <option value="Administrator">Администратор</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="bg-brand text-white px-6 py-2.5 rounded-xl font-semibold shadow-md hover:bg-brandHover transition">
+                                ДОДАЈ КОРИСНИКА
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 3.1. ПОСТОЈЕЋЕ АКТИВНОСТИ (Za profesore - Aktivnosti) -->
+                <div id="page-professor-activities" class="space-y-6 hidden">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Моје креиране активности</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Преглед активности које сте поставили и пријављених студената.</p>
+                    </div>
+
+                    <div class="bg-white dark:bg-darkCard rounded-2xl border border-slate-100 dark:border-darkBorder shadow-sm p-6">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-4">Активности у организацији</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="border-b border-slate-100 dark:border-darkBorder text-slate-400">
+                                        <th class="pb-3">НАЗИВ</th>
+                                        <th class="pb-3">ДАТУМ</th>
+                                        <th class="pb-3">ПРИЈАВЉЕНО СТУДЕНАТА</th>
+                                        <th class="pb-3">АКЦИЈА</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-darkBorder">
+                                    <tr>
+                                        <td class="py-4 font-bold text-slate-800 dark:text-slate-200">Презентација IT смерова</td>
+                                        <td>15.11.2026.</td>
+                                        <td>24 / 50</td>
+                                        <td><button onclick="alert('Приказ пријављених студената')" class="text-brand font-semibold hover:underline">Погледај спискове</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. ПАНЕЛ ЗА ПРОФЕСОРЕ (Nova Aktivnost) -->
+                <div id="page-professor" class="space-y-6 hidden">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Додавање нове активности</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Унесите податке за креирање нове промотивне активности Академије.</p>
+                    </div>
+
+                    <div class="bg-white dark:bg-darkCard p-8 rounded-2xl border border-slate-100 dark:border-darkBorder shadow-sm max-w-2xl">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-4 text-lg">Подаци о новој активности</h3>
+                        <form onsubmit="handleCreateActivity(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Назив активности</label>
+                                <input type="text" required placeholder="нпр. Дан отворених врата IT" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder bg-white dark:bg-darkInput text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Датум одржавања</label>
+                                    <input type="date" required class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder bg-white dark:bg-darkInput text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Место / Локација</label>
+                                    <input type="text" required placeholder="нпр. Амфитеатар А1" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder bg-white dark:bg-darkInput text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Капацитет (број студената)</label>
+                                <input type="number" min="1" required placeholder="50" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder bg-white dark:bg-darkInput text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Опис активности</label>
+                                <textarea rows="3" placeholder="Унесите кратак опис радионице или догађаја..." class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-darkBorder bg-white dark:bg-darkInput text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand"></textarea>
+                            </div>
+                            <button type="submit" class="bg-brand text-white px-6 py-2.5 rounded-xl font-semibold shadow-md hover:bg-brandHover transition">
+                                САЧУВАЈ АКТИВНОСТ
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 4. ПАНЕЛ ЗА СТУДЕНТЕ (Dostupne aktivnosti) -->
+                <div id="page-student" class="space-y-6 hidden">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Панел за студенте</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Истражите доступне активности Академије и пријавите се за учешће.</p>
+                    </div>
+
+                    <div class="bg-white dark:bg-darkCard rounded-2xl border border-slate-100 dark:border-darkBorder shadow-sm p-6">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-4">Доступне промотивне активности</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="border-b border-slate-100 dark:border-darkBorder text-slate-400">
+                                        <th class="pb-3">НАЗИВ АКТИВНОСТИ</th>
+                                        <th class="pb-3">ДАТУМ</th>
+                                        <th class="pb-3">ЛОКАЦИЈА</th>
+                                        <th class="pb-3">АКЦИЈА</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-darkBorder">
+                                    <tr>
+                                        <td class="py-4">
+                                            <div class="font-bold text-slate-800 dark:text-slate-200">Презентација IT смерова</div>
+                                            <div class="text-xs text-slate-400">Преглед програма и сарадње са привредом</div>
+                                        </td>
+                                        <td>15.11.2026.</td>
+                                        <td>Амфитеатар А1</td>
+                                        <td>
+                                            <button onclick="alert('Успешно сте се пријавили на активност!')" class="bg-brand text-white px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-brandHover transition">
+                                                Пријави се
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-4">
+                                            <div class="font-bold text-slate-800 dark:text-slate-200">Радионица дизајна и веб програмирања</div>
+                                            <div class="text-xs text-slate-400">Практичан рад у лабораторији</div>
+                                        </td>
+                                        <td>20.11.2026.</td>
+                                        <td>Лабораторија 104</td>
+                                        <td>
+                                            <button onclick="alert('Успешно сте се пријавили на активност!')" class="bg-brand text-white px-4 py-1.5 rounded-lg text-xs font-bold hover:bg-brandHover transition">
+                                                Пријави се
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4.1. МОЈЕ ПРИЈАВЕ (Za studente) -->
+                <div id="page-student-applications" class="space-y-6 hidden">
+                    <div>
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Моје пријаве</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Преглед активности на које сте се успешно пријавили.</p>
+                    </div>
+
+                    <div class="bg-white dark:bg-darkCard rounded-2xl border border-slate-100 dark:border-darkBorder shadow-sm p-6">
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-4">Активности у којима учествујете</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-sm">
+                                <thead>
+                                    <tr class="border-b border-slate-100 dark:border-darkBorder text-slate-400">
+                                        <th class="pb-3">НАЗИВ</th>
+                                        <th class="pb-3">ДАТУМ</th>
+                                        <th class="pb-3">СТАТУС</th>
+                                        <th class="pb-3">АКЦИЈА</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100 dark:divide-darkBorder">
+                                    <tr>
+                                        <td class="py-4 font-bold text-slate-800 dark:text-slate-200">Презентација IT смерова</td>
+                                        <td>15.11.2026.</td>
+                                        <td><span class="text-emerald-500 font-semibold">Пријављено</span></td>
+                                        <td><button onclick="alert('Отказали сте пријаву')" class="text-red-400 hover:underline text-xs font-bold">Otkaži</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ЛОГИКА -->
+    <script>
+        let currentUserRole = '';
+        let activePageId = '';
+
+        const roleMenus = {
+            admin: [
+                { id: 'page-admin', label: 'Korisnici', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>' },
+                { id: 'page-add-user', label: 'Novi korisnik', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>' }
+            ],
+            professor: [
+                { id: 'page-professor-activities', label: 'Aktivnosti', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>' },
+                { id: 'page-professor', label: 'Nova Aktivnost', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>' }
+            ],
+            student: [
+                { id: 'page-student', label: 'Aktivnosti', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>' },
+                { id: 'page-student-applications', label: 'Moje Prijave', icon: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>' }
+            ]
+        };
+
+        const icons = {
+            light: '<svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>',
+            dark: '<svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>',
+            system: '<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>'
+        };
+
+        function toggleThemeDropdown() {
+            const dropdown = document.getElementById('theme-dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        function setTheme(mode) {
+            localStorage.setItem('theme', mode);
+            applyTheme(mode);
+            document.getElementById('theme-dropdown').classList.add('hidden');
+        }
+
+        function applyTheme(mode) {
+            const html = document.documentElement;
+            const iconEl = document.getElementById('current-theme-icon');
+
+            iconEl.innerHTML = icons[mode] || icons.light;
+
+            if (mode === 'dark') {
+                html.classList.add('dark');
+            } else if (mode === 'light') {
+                html.classList.remove('dark');
+            } else {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    html.classList.add('dark');
+                } else {
+                    html.classList.remove('dark');
+                }
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'system';
+            applyTheme(savedTheme);
+        });
+
+        window.addEventListener('click', function(e) {
+            const btn = document.getElementById('theme-menu-button');
+            const dropdown = document.getElementById('theme-dropdown');
+            if (btn && dropdown && !btn.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+
+        function handleLogin(e) {
+            e.preventDefault();
+            currentUserRole = document.getElementById('login-role').value;
+
+            document.getElementById('page-login').classList.add('hidden');
+            document.getElementById('app-layout').classList.remove('hidden');
+
+            const defaultPage = roleMenus[currentUserRole][0].id;
+            navigateTo(defaultPage);
+        }
+
+        function setupNavigation() {
+            const nav = document.getElementById('sidebar-nav');
+            nav.innerHTML = '';
+
+            const items = roleMenus[currentUserRole] || [];
+
+            items.forEach(item => {
+                const isActive = item.id === activePageId;
+                const activeClass = isActive 
+                    ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 font-semibold' 
+                    : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-darkInput font-normal';
+
+                const dot = isActive ? '<span class="w-1.5 h-1.5 bg-indigo-600 dark:bg-indigo-400 rounded-full ml-auto"></span>' : '';
+
+                nav.innerHTML += `
+                    <button onclick="navigateTo('${item.id}')" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition ${activeClass} text-sm">
+                        <svg class="w-5 h-5 stroke-current" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            ${item.icon}
+                        </svg>
+                        <span>${item.label}</span>
+                        ${dot}
+                    </button>
+                `;
+
+                if (isActive) {
+                    document.getElementById('breadcrumb-current').innerText = item.label;
+                }
+            });
+        }
+
+        function navigateTo(pageId) {
+            activePageId = pageId;
+            const pages = ['page-admin', 'page-professor', 'page-professor-activities', 'page-student', 'page-student-applications', 'page-add-user'];
+            pages.forEach(id => {
+                const el = document.getElementById(id);
+                if(el) el.classList.add('hidden');
+            });
+            const target = document.getElementById(pageId);
+            if(target) target.classList.remove('hidden');
+            setupNavigation();
+        }
+
+        function logout() {
+            document.getElementById('app-layout').classList.add('hidden');
+            document.getElementById('page-login').classList.remove('hidden');
+        }
+
+        function handleCreateActivity(e) {
+            e.preventDefault();
+            alert('Активност је успешно креирана и сачувана!');
+        }
+
+        function handleAddUser(e) {
+            e.preventDefault();
+            alert('Нови корисник је успешно додат у систем!');
+        }
+    </script>
+</body>
+</html>
